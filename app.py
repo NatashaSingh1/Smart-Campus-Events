@@ -69,7 +69,8 @@ def init_db():
             pass
 
     if conn.execute("SELECT COUNT(*) FROM events").fetchone()[0] == 0:
-        org = conn.execute("SELECT id FROM users WHERE email='organizer@campus.com'").fetchone()["id"]
+        organizer = conn.execute("SELECT id FROM users WHERE email='organizer@campus.com'").fetchone()
+        org = organizer["id"] if organizer else None
         demo = [
             ("TechFest 2026","Technical","2026-10-05","10:00","Main Auditorium",org,200,"2026-10-03","Coding, innovation and technology showcase."),
             ("Cultural Night","Cultural","2026-10-12","17:00","College Ground",org,500,"2026-10-10","Music, dance and cultural performances."),
