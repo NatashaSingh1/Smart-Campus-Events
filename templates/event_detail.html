@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}{{event.title}}{% endblock %}
+{% block content %}<div class="detail card"><span class="tag">{{event.category}}</span><h1>{{event.title}}</h1><p class="big">{{event.description}}</p>
+<div class="detail-grid"><div>📅 <b>Date</b><br>{{event.date}}</div><div>⏰ <b>Time</b><br>{{event.time}}</div><div>📍 <b>Venue</b><br>{{event.venue}}</div><div>👥 <b>Capacity</b><br>{{count}} / {{event.capacity}}</div><div>⏳ <b>Deadline</b><br>{{event.deadline}}</div><div>📌 <b>Status</b><br>{{event.status}}</div></div>
+{% if session.get('role')=='student' %}<form method="post" action="{{url_for('register_event',event_id=event.id)}}"><button class="btn">Register for Event</button></form>{% elif not session.get('user_id') %}<a class="btn" href="{{url_for('login')}}">Login to Register</a>{% endif %}
+</div>{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Student Dashboard{% endblock %}
+{% block content %}<div class="page-title"><h1>Hi, {{session.name}} 👋</h1><p>Discover events and manage your registrations.</p></div>
+<div class="stats"><div><b>{{events|length}}</b><span>Available Events</span></div><div><b>{{regs|length}}</b><span>My Registrations</span></div></div>
+<div class="section-head"><h2>Upcoming Events</h2><a href="{{url_for('events')}}">Search & Filter</a></div>
+<div class="grid">{% for e in events %}<div class="card"><span class="tag">{{e.category}}</span><h3>{{e.title}}</h3><p>📅 {{e.date}} • 📍 {{e.venue}}</p>{% if e.id in registered %}<span class="registered">✓ Registered</span><form method="post" action="{{url_for('cancel',event_id=e.id)}}" class="inline"><button class="link-danger">Cancel</button></form>{% else %}<form method="post" action="{{url_for('register_event',event_id=e.id)}}"><button class="btn">Register</button></form>{% endif %}</div>{% endfor %}</div>
+<div class="section-head"><h2>My Registrations</h2></div>
+<div class="table-wrap"><table><tr><th>Event</th><th>Date</th><th>Venue</th><th>Registered At</th></tr>{% for r in regs %}<tr><td>{{r.title}}</td><td>{{r.date}}</td><td>{{r.venue}}</td><td>{{r.registered_at}}</td></tr>{% else %}<tr><td colspan="4">No registrations yet.</td></tr>{% endfor %}</table></div>{% endblock %}

@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Events{% endblock %}
+{% block content %}<div class="page-title"><h1>Campus Events</h1><p>Find events that interest you.</p></div>
+<form class="filters"><input name="q" value="{{q}}" placeholder="🔎 Search events, venue..."><select name="category"><option value="">All categories</option>{% for c in ['Technical','Cultural','Sports','Academic'] %}<option {% if category==c %}selected{% endif %}>{{c}}</option>{% endfor %}</select><button class="btn">Search</button></form>
+<div class="grid">{% for e in events %}<div class="card"><span class="tag">{{e.category}}</span><h3>{{e.title}}</h3><p>📅 {{e.date}} • {{e.time}}</p><p>📍 {{e.venue}}</p><p>{{e.description}}</p><a class="btn outline" href="{{url_for('event_detail',event_id=e.id)}}">Details</a></div>{% else %}<p>No events found.</p>{% endfor %}</div>{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}{{'Edit' if event else 'Create'}} Event{% endblock %}
+{% block content %}<div class="form-page"><h1>{{'Edit' if event else 'Create'}} Event</h1>
+<form method="post" class="form-grid">
+<label>Title<input name="title" required value="{{event.title if event else ''}}"></label>
+<label>Category<select name="category">{% for c in ['Technical','Cultural','Sports','Academic'] %}<option {% if event and event.category==c %}selected{% endif %}>{{c}}</option>{% endfor %}</select></label>
+<label>Date<input name="date" type="date" required value="{{event.date if event else ''}}"></label>
+<label>Time<input name="time" type="time" required value="{{event.time if event else ''}}"></label>
+<label>Venue<input name="venue" required value="{{event.venue if event else ''}}"></label>
+<label>Capacity<input name="capacity" type="number" min="1" required value="{{event.capacity if event else 100}}"></label>
+<label>Registration Deadline<input name="deadline" type="date" required value="{{event.deadline if event else ''}}"></label>
+{% if event %}<label>Status<select name="status">{% for s in ['Upcoming','Ongoing','Completed','Cancelled'] %}<option {% if event.status==s %}selected{% endif %}>{{s}}</option>{% endfor %}</select></label>{% else %}<input type="hidden" name="status" value="Upcoming">{% endif %}
+<label class="wide">Description<textarea name="description" rows="5">{{event.description if event else ''}}</textarea></label>
+<div class="wide"><button class="btn">{{'Update' if event else 'Create'}} Event</button></div></form></div>{% endblock %}

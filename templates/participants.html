@@ -1,0 +1,3 @@
+{% extends "base.html" %}{% block title %}Participants{% endblock %}
+{% block content %}<div class="page-title"><h1>{{event.title}}</h1><p>Registered participants and attendance.</p></div>
+<div class="table-wrap"><table><tr><th>Name</th><th>Email</th><th>Registered</th><th>Attendance</th></tr>{% for p in participants %}<tr><td>{{p.name}}</td><td>{{p.email}}</td><td>{{p.registered_at}}</td><td><form method="post" action="{{url_for('mark_attendance',registration_id=p.id)}}"><input type="hidden" name="present" value="{{0 if p.present else 1}}"><button class="status-btn">{{'✓ Present' if p.present else 'Mark Present'}}</button></form></td></tr>{% else %}<tr><td colspan="4">No participants yet.</td></tr>{% endfor %}</table></div>{% endblock %}

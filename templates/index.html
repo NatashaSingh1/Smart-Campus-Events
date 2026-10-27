@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block title %}CampusConnect{% endblock %}
+{% block content %}
+<section class="hero">
+<div><span class="eyebrow">SMART CAMPUS</span><h1>Discover. Register.<br><span>Participate.</span></h1>
+<p>One simple portal for discovering and managing college events.</p>
+<a class="btn" href="{{ url_for('events') }}">Explore Events →</a></div>
+<div class="hero-card"><div class="hero-icon">📅</div><h3>Everything in one place</h3><p>Academic, technical, cultural and sports events at your fingertips.</p></div>
+</section>
+<div class="section-head"><h2>Upcoming Events</h2><a href="{{ url_for('events') }}">View all →</a></div>
+<div class="grid">
+{% for e in events %}
+<div class="card"><span class="tag">{{e.category}}</span><h3>{{e.title}}</h3><p>📅 {{e.date}} &nbsp; ⏰ {{e.time}}</p><p>📍 {{e.venue}}</p><a href="{{url_for('event_detail',event_id=e.id)}}" class="text-link">View details →</a></div>
+{% endfor %}
+</div>
+{% endblock %}
